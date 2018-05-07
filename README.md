@@ -4,12 +4,16 @@ Projeto de um APP de Contatos usando o Framework Ionic com banco de dados Fireba
 
 ## Características
 
+- AuthModules
+- Cadastro de Usuários
+- Login com E-mail, Google, Facebook, Twitter ou GitHub
 - CRUD Contatos
 
 ## Tecnologias
 
 - Ionic
 - AngularJS
+- TypeScript
 - NodeJS
 - Firebase
 
@@ -52,3 +56,4 @@ APP Contato está licenciado sobre <a href="LICENSE">The MIT License (MIT)</a>.
 ![Screenshots](screenshots/screenshot01.png)<br><br>
 ![Screenshots](screenshots/screenshot02.png)<br><br>
 ![Screenshots](screenshots/screenshot03.png)<br><br>
+![Screenshots](screenshots/screenshot04.png)<br><br>

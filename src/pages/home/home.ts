@@ -1,7 +1,10 @@
-import { ContactProvider } from './../../providers/contact/contact';
+import { ContactsProvider } from './../../providers/contacts/contacts';
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { LoginPage } from '../login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @Component({
   selector: 'page-home',
@@ -10,22 +13,17 @@ import { Observable } from 'rxjs/Observable';
 export class HomePage {
   contacts: Observable<any>;
 
-  constructor(public navCtrl: NavController, private provider: ContactProvider,
+  constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, public utils: UtilsProvider, private provider: ContactsProvider,
     private toast: ToastController) {
-
     this.contacts = this.provider.getAll();
   }
 
   newContact() {
-    this.navCtrl.push('ContactEditPage');
+    this.navCtrl.push('ContactsPage');
   }
 
   editContact(contact: any) {
-    // Maneira 1
-    this.navCtrl.push('ContactEditPage', { contact: contact });
-
-    // Maneira 2
-    // this.navCtrl.push('ContactEditPage', { key: contact.key });
+    this.navCtrl.push('ContactsPage', { contact: contact });
   }
 
   removeContact(key: string) {
@@ -38,5 +36,12 @@ export class HomePage {
           this.toast.create({ message: 'Erro ao remover o contato.', duration: 3000 }).present();
         });
     }
+  }
+
+  doLogout() {
+    this.afAuth.auth.signOut().then(() => {
+      this.utils.showToast('Você foi desconectado com sucesso!');
+      this.navCtrl.setRoot(LoginPage);
+    }).catch(err => this.utils.showToast(err.message));
   }
 }

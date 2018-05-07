@@ -4,41 +4,49 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-
 import { MyApp } from './app.component';
+
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from '../environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { HomePage } from '../pages/home/home';
-import { ContactProvider } from '../providers/contact/contact';
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
+import { ForgetPage } from '../pages/forget/forget';
+import { UtilsProvider } from '../providers/utils/utils';
+import { ContactsProvider } from '../providers/contacts/contacts';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage,
+    RegisterPage,
+    ForgetPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyCaGbMeYOCoAsHoPe8baS-r1T5pAUb4LEQ",
-    authDomain: "contact-8a885.firebaseapp.com",
-    databaseURL: "https://contact-8a885.firebaseio.com",
-    projectId: "contact-8a885",
-    storageBucket: "contact-8a885.appspot.com",
-    messagingSenderId: "139058202804"
-    }),
-    AngularFireDatabaseModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage,
+    RegisterPage,
+    ForgetPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ContactProvider
+    UtilsProvider,
+    ContactsProvider
   ]
 })
 export class AppModule {}
